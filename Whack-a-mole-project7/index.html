@@ -1,0 +1,121 @@
+<!-- 
+		Name: Jamie Hodge	
+		Date: 9/27/2017
+		Class: CSCI2447, Javascript Fundamentals
+		Project 2
+ -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Whack-A-Mole (CSCI2447)</title>
+    
+    <!-- CSS styles: This is for me to worry about; not you. -->
+	<link href="css/game.css" rel="stylesheet" />
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script>
+	var timer = 10;
+	var t;
+	
+	$(document).ready( function() {
+	//$("#gamespace").html('<img src="img/mole.jpg"/>');
+	
+	$("#timer").show();
+	
+	
+	$('button[id^="start_button"]').click(function(){
+	
+    beginGame();
+	addMole();
+	
+    }); 
+	
+	
+
+    
+    });
+	function beginGame() {
+		//alert(randomX);
+	    //alert(randomY);
+		decrementTimer();
+		//scoreIncrement();
+		$("#gamespace").css("background-color", "yellow")
+		
+	
+	}
+	var randomX = Math.floor(Math.random()*600)
+	var randomY = Math.floor(Math.random()*300)
+	var score = 0;
+	function scoreIncrement() { 
+	score++;
+	document.getElementById("score").innerText="score: " + score;
+	}
+	function decrementTimer() {
+	timer--;
+	$("#timer").html(timer+ ' seconds left');
+	t = setTimeout("decrementTimer()", 1000);
+	if (timer == 0) {
+		clearTimeout(t);
+		
+		}
+	
+	
+	}
+	function addMole() {
+	//$("#gamespace").append('<img src="img/mole.jpg"/>');
+	setInterval(function() {
+	var randomX = Math.floor(Math.random()*605)
+	var randomY = Math.floor(Math.random()*110)
+	$("#gamespace").append('<img src="img/mole.jpg" id="mole" style="top:'+randomX+'px;left:'+randomY+'px;"/>');}, 3000);
+	
+	
+	$("#gamespace").on("click", function(){
+		scoreIncrement();
+	
+
+	
+
+	});
+	$("#mole").on("click", function() {
+		$("#mole").hide()
+	});
+    }
+
+	
+	
+	
+	
+	
+	
+	
+
+	</script>
+    
+  </head>
+  <body>
+
+	<div id="content">
+
+		<h1>Whack-A-Mole</h1>
+		
+		<p>After clicking "start", you will have 30 seconds to click
+		as many moles as you can. The moles appear randomly so be ready! </p>
+		
+		<div id="controls">
+			<span id="score">0 pts</span>
+			<button type="button" id="start_button" >Start!</button>
+			<!--<button type="score" id ="score_button" onclick="scoreIncrement()" >Score!</button> -->
+		</div>
+		
+		<div id="timer"></div>
+		
+		<div id="gamespace">
+
+			<!--<img id="mole" src="img/mole.jpg"/>-->
+			
+		</div>
+		
+	</div>
+  </body>
+</html>
